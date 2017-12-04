@@ -43,10 +43,11 @@ Z = Features3D(3, :);
 
 [xq,yq] = meshgrid(0:10:size(Ia,2),0:10:size(Ia,2))  ;
 vq = griddata(X,Y,Z,xq,yq);
-mesh(xq,yq,vq)
+figure, mesh(xq,yq,vq)
 hold on
 scatter3(X,Y,Z, 'r')
 
+%bilinear interpolation
 %interpolate with scatteredInterpolant?
 
 %HeightImg = scatteredInterpolant(X', Y', Z');

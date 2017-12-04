@@ -1,23 +1,27 @@
-scale = 0.2 ; %how is the image scaled?
+scale = 0.7 ; %how is the image scaled?
 angleStds = 0.5; %number of acceptable std deviations from mean for the angle of the vector connecting matched points 
-distStds = 0.5; %number of acceptable std deviations from the mean of matched point distances
+distStds = 3; %number of acceptable std deviations from the mean of matched point distances
+sift_peak_thresh = 1; %reduce to increase feature count
 
 
-
-pfx = fullfile('Images', 'im0.png') ; 
+%pfx = fullfile('Images', 'im0.png') ; 
+pfx = fullfile('Images', 'storage0.png') ; 
 I = imread(pfx) ;
 I = imresize(I, scale) ;
 %figure; image(I) ;
 Ia = single(rgb2gray(I)) ;
 
-pfx = fullfile('Images', 'im1.png') ; 
+%pfx = fullfile('Images', 'im1.png') ; 
+pfx = fullfile('Images', 'storage1.png') ; 
 I = imread(pfx) ;
 I = imresize(I, scale) ;
 %figure, image(I) ;
 Ib = single(rgb2gray(I)) ;
 
-[fa, da] = vl_sift(Ia) ; %Computes SIFT features and descriptors
-[fb, db] = vl_sift(Ib) ; %Computes SIFT features and descriptors
+%fc = [100; 100; 10; 0]; %specify frames?
+
+[fa, da] = vl_sift(Ia, 'PeakThresh', sift_peak_thresh);%, 'frames', fc) ; %Computes SIFT features and descriptors
+[fb, db] = vl_sift(Ib, 'PeakThresh', sift_peak_thresh);%, 'frames', fc) ; %Computes SIFT features and descriptors
 [matches, scores] = vl_ubcmatch(da, db) ; %function that finds matching descriptors by computing distances between descriptors da and db.
 
 m1= fa(1:2,matches(1,:)); m2=fb(1:2,matches(2,:)); %Stores the x and y location of the features
@@ -66,7 +70,7 @@ Y=[MatchedPairsOrig(2,:);MatchedPairsOrig(4,:)];
 figure, imshow(Ia,[]);
 hold on;
 %line(X(:,1:3:100),Y(:,1:3:100)) %Draws a line between every 3rd feature in the first 100 features
-line(X(:,:),Y(:,:))
+line(X,Y)
 hold off;
 
 %draw the angle culled version
@@ -76,7 +80,7 @@ Y=[MatchedPairsAngle(2,:);MatchedPairsAngle(4,:)];
 figure, imshow(Ia,[]);
 hold on;
 %line(X(:,1:3:100),Y(:,1:3:100)) %Draws a line between every 3rd feature in the first 100 features
-line(X(:,:),Y(:,:))
+line(X,Y)
 hold off;
 
 %draw the angle and dist culled version
@@ -86,9 +90,9 @@ Y=[MatchedPairsDist(2,:);MatchedPairsDist(4,:)];
 figure, imshow(Ia,[]);
 hold on;
 %line(X(:,1:3:100),Y(:,1:3:100)) %Draws a line between every 3rd feature in the first 100 features
-line(X(:,:),Y(:,:))
+line(X,Y)
 hold off;
 
 
-
+%hough transform to filter out bad matches
 
