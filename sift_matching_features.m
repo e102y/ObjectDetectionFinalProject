@@ -1,11 +1,19 @@
-pfx = fullfile(vl_root,'data', 'roofs1.jpg') ; 
+scale = 0.2 ; %how is the image scaled?
+angleStds = 0.5; %number of acceptable std deviations from mean for the angle of the vector connecting matched points 
+distStds = 0.5; %number of acceptable std deviations from the mean of matched point distances
+
+
+
+pfx = fullfile('Images', 'im0.png') ; 
 I = imread(pfx) ;
-figure; image(I) ;
+I = imresize(I, scale) ;
+%figure; image(I) ;
 Ia = single(rgb2gray(I)) ;
 
-pfx = fullfile(vl_root,'data', 'roofs2.jpg') ; 
+pfx = fullfile('Images', 'im1.png') ; 
 I = imread(pfx) ;
-figure, image(I) ;
+I = imresize(I, scale) ;
+%figure, image(I) ;
 Ib = single(rgb2gray(I)) ;
 
 [fa, da] = vl_sift(Ia) ; %Computes SIFT features and descriptors
@@ -13,19 +21,77 @@ Ib = single(rgb2gray(I)) ;
 [matches, scores] = vl_ubcmatch(da, db) ; %function that finds matching descriptors by computing distances between descriptors da and db.
 
 m1= fa(1:2,matches(1,:)); m2=fb(1:2,matches(2,:)); %Stores the x and y location of the features
-m2(1,:)= m2(1,:)+size(Ia,2)*ones(1,size(m2,2)); %Updates the x location of features in second image because we want to show these images side by side
+deltax = m1(1,:) - m2(1,:) ;
+deltay = m1(2,:) - m2(2,:) ;
+distances= sqrt((deltax).^2 + (deltay).^2) ;
+angles= atan(deltay./deltax); 
+meanAngle= mean(angles);
+angleStdDeviation= std(angles);
+MatchedPairs= [m1; m2; distances; angles] ;
+MatchedPairsOrig= MatchedPairs;
 
-X=[m1(1,:);m2(1,:)]; 
-Y=[m1(2,:);m2(2,:)];
-c=[Ia Ib];
-figure, imshow(c,[]);
+upperAngleThresh= meanAngle + (angleStds * angleStdDeviation) ;
+lowerAngleThresh= meanAngle - (angleStds * angleStdDeviation) ;
+
+meanDist = mean(MatchedPairs(5,:)) ;
+stdDevDist = std(MatchedPairs(5,:)) ;
+
+upperDistThresh= meanDist + (distStds * stdDevDist) ;
+lowerDistThresh= meanDist - (distStds * stdDevDist) ;
+%Time to Remove angle outliers
+
+
+%Time to Remove angle outliers
+removalIndex= false(1,size(MatchedPairs, 2));
+for i = 1:size(MatchedPairs, 2)
+    removalIndex(i) = (MatchedPairs(6,i) < lowerAngleThresh) | (MatchedPairs(6,i) > upperAngleThresh);
+end
+MatchedPairs(:,removalIndex) = [];
+MatchedPairsAngle= MatchedPairs;
+
+%Time to Remove distance outliers
+removalIndex= false(1,size(MatchedPairs, 2));
+for i = 1:size(MatchedPairs, 2)
+    removalIndex(i) = (MatchedPairs(5,i) < lowerDistThresh) | (MatchedPairs(5,i) > upperDistThresh);
+end
+MatchedPairs(:,removalIndex) = [];
+MatchedPairsDist= MatchedPairs;
+
+%draw the unculled version
+X=[MatchedPairsOrig(1,:);MatchedPairsOrig(3,:)];
+Y=[MatchedPairsOrig(2,:);MatchedPairsOrig(4,:)];
+
+%c=[Ia Ib];
+
+figure, imshow(Ia,[]);
 hold on;
-line(X(:,1:3:100),Y(:,1:3:100)) %Draws a line between every 3rd feature in the first 100 features
-	
-%TODO 1: PLAY with optional parameters in vl_sift that affect the number of features. "help vl_sift" will show two parameters 'PeakThresh' and 'edgeThresh' that can be changed.
-%TODO 1: Use vl_plotframe to visualize features (like in sift_visualize_features.m)
-	
-%TODO 2: PLAY with optional parameters in vl_ubcmatch that affect the number of matches.  "help vl_ubcmatch" will show one threshold parameter that can be tweaked to change the number of matches.
-%TODO 2: 
+%line(X(:,1:3:100),Y(:,1:3:100)) %Draws a line between every 3rd feature in the first 100 features
+line(X(:,:),Y(:,:))
+hold off;
 
-%TODO 3. PLAY with changing images. Images are in directory (vl_root,'data'). Try 'river1.jpg' and 'river2.jpg'
+%draw the angle culled version
+X=[MatchedPairsAngle(1,:);MatchedPairsAngle(3,:)];
+Y=[MatchedPairsAngle(2,:);MatchedPairsAngle(4,:)];
+
+figure, imshow(Ia,[]);
+hold on;
+%line(X(:,1:3:100),Y(:,1:3:100)) %Draws a line between every 3rd feature in the first 100 features
+line(X(:,:),Y(:,:))
+hold off;
+
+%draw the angle and dist culled version
+X=[MatchedPairsDist(1,:);MatchedPairsDist(3,:)];
+Y=[MatchedPairsDist(2,:);MatchedPairsDist(4,:)];
+
+figure, imshow(Ia,[]);
+hold on;
+%line(X(:,1:3:100),Y(:,1:3:100)) %Draws a line between every 3rd feature in the first 100 features
+line(X(:,:),Y(:,:))
+hold off;
+
+
+
+%interpolate with scatteredInterpolant?
+%HeightImg = scatteredInterpolant(X, Y, H);
+
+
