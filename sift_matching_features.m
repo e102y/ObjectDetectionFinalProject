@@ -91,7 +91,4 @@ hold off;
 
 
 
-%interpolate with scatteredInterpolant?
-%HeightImg = scatteredInterpolant(X, Y, H);
-
 
