@@ -38,33 +38,39 @@ TRANSFORM.maxNoise = .05;
 TRANSFORM.maxAlpha = 1.4;
 TRANSFORM.maxBeta = .1;
 
-LABELS = [... 
+
+
+LABELS = buildLabels(DIR.groundTruth);
+
+%[... 
 %    [0, 0, 0],         %  0. void
-    [128, 0, 0],     %  1. building
-    [0, 128, 0],     %  2. grass
-    [128, 128, 0],   %  3. tree
-                     %    [0, 0, 128],     %  4. cow COMMENT OUT LATER
-                     %    [0, 128, 128],   %  5. sheep COMMENT OUT LATER
-    [128, 128, 128], %  4. sky
-    [192, 0, 0],     %  5. aeroplane
-    [64, 128, 0],    %  6. water
-    [192, 128, 0],   %  7. face
-    [64, 0, 128],    %  8. car
+%    [128, 0, 0],     %  1. building
+ %   [0, 128, 0],     %  2. grass
+  %  [128, 128, 0],   %  3. tree
+   %                  %    [0, 0, 128],     %  4. cow COMMENT OUT LATER
+    %                 %    [0, 128, 128],   %  5. sheep COMMENT OUT LATER%
+%    [128, 128, 128], %  4. sky
+ %   [192, 0, 0],     %  5. aeroplane
+  %  [64, 128, 0],    %  6. water
+   % [192, 128, 0],   %  7. face
+    %[64, 0, 128],    %  8. car
     % [192, 0, 128],   %  9. bicycle
-    [64, 128, 128],  % 9. flower
-    [192, 128, 128], % 10. sign
-    [0, 64, 0],      % 11. bird
+%    [64, 128, 128],  % 9. flower
+ %   [192, 128, 128], % 10. sign
+  %  [0, 64, 0],      % 11. bird
                      %    [128, 64, 0],    % 15. book COMMENT OUT LATER
-    [0, 192, 0],     % 12. chair
-    [128, 64, 128],  % 13. road
-    [0, 192, 128],   % 14. cat
-    [128, 192, 128], % 15. dog
-    [64, 64, 0],     % 16. body
-    [192, 64, 0]     % 17. boat
+   % [0, 192, 0],     % 12. chair
+    %[128, 64, 128],  % 13. road
+%    [0, 192, 128],   % 14. cat
+ %   [128, 192, 128], % 15. dog
+  %  [64, 64, 0],     % 16. body
+   % [192, 64, 0]     % 17. boat
                      %Color.FromArgb[128, 0, 128],   % horse
                      %Color.FromArgb[64, 0, 0],      % mountain
-    ...
-    ];
+   % ...
+   % ];
+
+
 % matlab doesn't let you use vector as keys so use char
 k = num2str(LABELS, '%d%d%d');
 % ignoring cow, sheep, book 19 classes
