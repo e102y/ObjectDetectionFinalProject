@@ -1,5 +1,5 @@
 scale = 0.3 ; %how is the image scaled?
-angleStds = 0.5; %number of acceptable std deviations from mean for the angle of the vector connecting matched points 
+angleStds = 0.7; %number of acceptable std deviations from mean for the angle of the vector connecting matched points 
 distStds = 3; %number of acceptable std deviations from the mean of matched point distances
 sift_peak_thresh = 1; %reduce to increase feature count
 ALLCHANNELS = true;
@@ -125,6 +125,8 @@ hold on;
 line(X,Y)
 hold off;
 
+%prepare for next step:
+Ia = Iaorig;
 
 %hough transform to filter out bad matches
 

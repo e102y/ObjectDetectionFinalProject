@@ -33,6 +33,7 @@ c = -(a+b) + pi ;
 %
 p = c/2 ;
 D = p.^-1 ;
+%D = D./(D+100) ;
 Features3D= [MatchedPairs(1:2, :); D] ;
 
 
@@ -48,7 +49,8 @@ figure, mesh(xq,yq,vq)
 hold on
 scatter3(X,Y,Z, 'r')
 hold off
-imshow(vq,[0,100])
+
+figure, imshow(vq, [0,100])
 
 %bilinear interpolation
 %interpolate with scatteredInterpolant?
