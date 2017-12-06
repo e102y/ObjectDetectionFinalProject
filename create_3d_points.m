@@ -17,6 +17,7 @@
 %first calculate the angle of features from the camera
 %we need the focal length of the camera, f. we will just 
 %make that an arbitrary constant for now
+
 f = 400 ;
 midx = size(Ia, 1) ;
 img1Theta = atan((MatchedPairs(1, :) - midx)/f);
@@ -41,14 +42,21 @@ Y = Features3D(2, :);
 Z = Features3D(3, :);
 
 
-[xq,yq] = meshgrid(0:10:size(Ia,2),0:10:size(Ia,2))  ;
+[xq,yq] = meshgrid(0:1:size(Ia,2),0:1:size(Ia,2))  ;
 vq = griddata(X,Y,Z,xq,yq);
 figure, mesh(xq,yq,vq)
 hold on
 scatter3(X,Y,Z, 'r')
+hold off
+imshow(vq,[0,100])
 
 %bilinear interpolation
 %interpolate with scatteredInterpolant?
 
 %HeightImg = scatteredInterpolant(X', Y', Z');
 %imshow(HeightImg)
+
+%{
+matchedPoints1 = MatchedPairs(1:2) ;
+matchedPoints2 = MatchedPairs(3:4) ;
+%}
