@@ -61,4 +61,5 @@ figure, imshow(vq, [0,100])
 %{
 matchedPoints1 = MatchedPairs(1:2) ;
 matchedPoints2 = MatchedPairs(3:4) ;
+triangulate(matchedPoints1, matchedPoints2, camMatrix1, camMatrix2);
 %}
