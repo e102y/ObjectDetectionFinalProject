@@ -51,6 +51,7 @@ grid on;
 %   binaryImage = im2bw(originalImage, normalizedThresholdValue);       % One way to threshold to binary
 % Method #2: using a logical operation.
 thresholdValue = 90;
+guassImage = originalImage;
 binaryImage = originalImage > thresholdValue; % Bright objects will be chosen if you use >.
 % ========== IMPORTANT OPTION ============================================================
 % Use < if you want to find dark objects instead of bright objects.
