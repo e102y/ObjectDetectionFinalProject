@@ -77,7 +77,7 @@ MatchedPairsDist= MatchedPairs;
 stereo = stereoAnaglyph(image1,image2);
 
 
-//Uncomment the follwing 4 blocks to show intermediate states
+%Uncomment the follwing 4 blocks to show intermediate states
 
 %draw the unculled version
 X=[MatchedPairsOrig(1,:);MatchedPairsOrig(3,:)];
