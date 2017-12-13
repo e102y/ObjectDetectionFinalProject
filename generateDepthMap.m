@@ -20,7 +20,7 @@
 function returnedValue = generateDepthMap(image, MatchedPairs)
 
 Ia = image ;
-f = 400 ;
+f = 100 ;
 midx = size(Ia, 1) ;
 img1Theta = atan((MatchedPairs(1, :) - midx)/f);
 img2Theta = atan((MatchedPairs(3, :) - midx)/f);
