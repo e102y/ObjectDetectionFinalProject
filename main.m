@@ -1,6 +1,6 @@
 scale = 1 ; %how is the image scaled?
 %sourceimage url is http://vision.middlebury.edu/stereo/submit3/zip/MiddEval3-data-F.zip
-num = 1 ;
+num = 9 ; %4,5 are good; 6(good) versus 7(bad) shows lighting effect. 
 numberString = int2str(num) ;
 
 pfx = fullfile('Images', 'trainingQ', numberString, {'im0.png', 'im1.png'}) ;
