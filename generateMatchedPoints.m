@@ -84,22 +84,22 @@ Y=[MatchedPairsOrig(2,:);MatchedPairsOrig(4,:)];
 %c=[Ia Ib];
 stereo = stereoAnaglyph(Iaorig,Iborig);
 
-figure, imshow(stereo,[]);
-title('unculled')
+%figure, imshow(stereo,[]);
+%title('unculled')
 hold on;
 %line(X(:,1:3:100),Y(:,1:3:100)) %Draws a line between every 3rd feature in the first 100 features
-line(X,Y)
+%line(X,Y)
 hold off;
 
 %draw the angle culled version
 X=[MatchedPairsAngle(1,:);MatchedPairsAngle(3,:)];
 Y=[MatchedPairsAngle(2,:);MatchedPairsAngle(4,:)];
 
-figure, imshow(stereo,[]);
-title('culled based on angle')
+%figure, imshow(stereo,[]);
+%title('culled based on angle')
 hold on;
 %line(X(:,1:3:100),Y(:,1:3:100)) %Draws a line between every 3rd feature in the first 100 features
-line(X,Y)
+%line(X,Y)
 hold off;
 
 %draw the angle and dist culled version
