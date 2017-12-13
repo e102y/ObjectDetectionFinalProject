@@ -9,22 +9,23 @@ function hsDMv = rgb2hsDMv(image, dm)
 img = rgb2hsv(image);
 %%%
 figure, imshow(img);
+%%
 %compress hue and saturation into one channel
-sat = img(:, :, 2) ;
-hue = img(:, :, 1) ;
-avg = (sat + hue)/2 ;
-img(:, :, 1) = avg ;
+sat = img(:, :, 2); %pull the saturation
+hue = img(:, :, 1); %pull the hue
+avg = (sat + hue)/2; %the the result and divide them by two
+img(:, :, 1) = avg; %assign the new average into the first channel
 
 %%
 %filled with zeros until we have the depth map.
-%dimensions 
-x = size(img(:,:,1)) ;
+x = size(img(:,:,1)); %filling a 2-d array with zeros
 %dimensions = [dimensions, 0] ;
-img(:, :, 2) = double(zeros(x)) ;
-
+img(:, :, 2) = double(zeros(x)); %replace the saturation layer with our depthmap
 figure, imshow(img);
-img(:, :, 2) = dm*2.3 ;
-
-
+%%
+%add in our depth map
+img(:, :, 2) = dm*2.3;%this multiple by three is to help illustrate the results for imshow
 figure, imshow(img);
-hsDMv = img;
+
+%return
+hsDMv = img/2.3;
