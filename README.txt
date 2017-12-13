@@ -14,7 +14,8 @@ generateMatchedPoints:
 	Given two images, this function will display the point matches as a set of lines overlayed on to a stereo anaglyph. The thresholds which determine how much a match can deviate in angle or distance can be set at the top of the function (angleStds and distStds), along with the the sift peak threshold.
 	if ALLCHANNELS is set to true, the sift features will be generated separately on the red, green, and blue color channels, as opposed to a grayscale version of the image.
 	This function outputs an array of matched points, of the form (x1; y1; x2; y2).
-
+rgb2hsDMv:
+	Given an image and a height map, this combines the two in such a way to try and match the required input for the STF classier. It averages the saturation and hue into a single channel and fills the free channel with the depth map. it will then return the image
 
 
 STF-README
