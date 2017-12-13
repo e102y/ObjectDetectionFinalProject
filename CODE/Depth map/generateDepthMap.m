@@ -60,12 +60,7 @@ figure, imshow(vq, [0,1])
 returnedValue = vq ;
 return ;
 
-%bilinear interpolation
-%interpolate with scatteredInterpolant?
-
-%HeightImg = scatteredInterpolant(X', Y', Z');
-%imshow(HeightImg)
-
+%attepts to use triangulate
 %{
 matchedPoints1 = MatchedPairs(1:2) ;
 matchedPoints2 = MatchedPairs(3:4) ;
