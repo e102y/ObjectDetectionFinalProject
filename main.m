@@ -1,15 +1,18 @@
-scale = 0.3 ; %how is the image scaled?
+scale = 1 ; %how is the image scaled?
 %sourceimage url is http://vision.middlebury.edu/stereo/submit3/zip/MiddEval3-data-F.zip
+num = 1 ;
+numberString = int2str(num) ;
 
-pfx = fullfile('Images', 'im0.png') ; 
-image = imread(pfx) ;
+pfx = fullfile('Images', 'trainingQ', numberString, {'im0.png', 'im1.png'}) ;
+
+image = imread(char(pfx(:,1))) ;
 image1 = imresize(image, scale) ;
-
-pfx = fullfile('Images', 'im1.png') ; 
-image = imread(pfx) ;
+image = imread(char(pfx(:,2))) ;
 image2 = imresize(image, scale) ;
 
 matchedPoints = generateMatchedPoints(image1, image2);
+
+%%
 %should get MatchedPairs
 depthmap = generateDepthMap(image1, matchedPoints);
 newimg  = rgb2hsDMv(image1, depthmap);
