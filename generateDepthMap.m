@@ -17,7 +17,9 @@
 %first calculate the angle of features from the camera
 %we need the focal length of the camera, f. we will just 
 %make that an arbitrary constant for now
+function returnedValue = generateDepthMap(image, MatchedPairs)
 
+Ia = image ;
 f = 400 ;
 midx = size(Ia, 1) ;
 img1Theta = atan((MatchedPairs(1, :) - midx)/f);
@@ -33,24 +35,27 @@ c = -(a+b) + pi ;
 %
 p = c/2 ;
 D = p.^-1 ;
-%D = D./(D+100) ;
+D = (D/200)./((D/200)+1) ;
 Features3D= [MatchedPairs(1:2, :); D] ;
-
+Features3D= [Features3D, [0;0;1], [0;size(Ia,1);1], [size(Ia,2);0;1], [size(Ia,2);size(Ia,1);1]];
 
 %display
-X = Features3D(1, :);
-Y = Features3D(2, :);
-Z = Features3D(3, :);
+X = Features3D(1, :) ;
+Y = Features3D(2, :) ;
+Z = Features3D(3, :) ;
 
 
-[xq,yq] = meshgrid(0:1:size(Ia,2),0:1:size(Ia,2))  ;
+[xq,yq] = meshgrid(0:1:size(Ia,2),0:1:size(Ia,1))  ;
 vq = griddata(X,Y,Z,xq,yq);
+
 figure, mesh(xq,yq,vq)
 hold on
 scatter3(X,Y,Z, 'r')
 hold off
 
-figure, imshow(vq, [0,100])
+figure, imshow(vq, [0,1])
+returnedValue = vq ;
+return ;
 
 %bilinear interpolation
 %interpolate with scatteredInterpolant?

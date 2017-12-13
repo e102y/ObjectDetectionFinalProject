@@ -1,3 +1,5 @@
+function returnValue = generateMatchedPoints(image)
+
 scale = 0.3 ; %how is the image scaled?
 angleStds = 0.7; %number of acceptable std deviations from mean for the angle of the vector connecting matched points 
 distStds = 3; %number of acceptable std deviations from the mean of matched point distances
@@ -5,11 +7,8 @@ sift_peak_thresh = 1; %reduce to increase feature count
 ALLCHANNELS = true;
 
 %pfx = fullfile('Images', 'im0.png') ; 
-pfx = fullfile('Images', 'storage0.png') ; 
-Iaorig = imread(pfx) ;
-Iaorig = imresize(Iaorig, scale) ;
 %figure; image(I) ;
-
+Iaorig = image
 
 %pfx = fullfile('Images', 'im1.png') ; 
 pfx = fullfile('Images', 'storage1.png') ; 
@@ -126,7 +125,8 @@ line(X,Y)
 hold off;
 
 %prepare for next step:
-Ia = Iaorig;
+returnValue = MatchedPairsDist(1:4,:);
+return
 
 %hough transform to filter out bad matches
 
