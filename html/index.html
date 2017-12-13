@@ -153,7 +153,7 @@ From this we would include the depth map into the semantic texton forest classif
 </p>
 <div style="clear:both">
 
-<h3>Pars of the project</h3>
+<h3>Goals of the project</h3>
 <ol>
 <li>To create a functional depth map using two images</li>
 <li>Implement into a high-dimensional classifier</li>
@@ -217,10 +217,7 @@ Features3D= [Features3D, [0;0;maxD], [0;size(Ia,1);maxD], [size(Ia,2);0;maxD], [
 %the mesh.
 
 </code></pre>
-<h3>Hello</h3>
-<p> Lorem impsum </p>
 
-<p>&nbsp;</p>
 <p>&nbsp;</p>
 <h3>Results in a table</h3>
 
@@ -275,15 +272,13 @@ Features3D= [Features3D, [0;0;maxD], [0;size(Ia,1);maxD], [size(Ia,2);0;maxD], [
 
 </table>
 
-<h2>Some figures</h2>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
 
-<h2>&nbsp;</h2>
-<p>&nbsp;</p>
-
-<h3>Semantic texton forest</h3>
+<h2>Semantic texton forest</h2>
 <p> We used a classifer called semantic texton forest. Its made up of several texton probability trees with labels. 
  </p>
+ <p>&nbsp;</p>
  
 
 <h3>A Problem</h3>
@@ -295,7 +290,7 @@ Features3D= [Features3D, [0;0;maxD], [0;size(Ia,1);maxD], [size(Ia,2);0;maxD], [
  <li>Rather than try and to create a new channel for the STF. black box, we decided to add the height map to the images.</li>
  <li>We converted the RGB representation into HSV. Compressed two of the channels into one, and added the heightmap into one of the two condsend channel</li>
  </ol>
- 
+ <p>&nbsp;</p>
  
 <h2>Code for generating our modifed HSV image</h2>
 The following code generates a modifed HSV format image that truncates the hue, and the saturation into a single channel, then it fills our third channel with a depth map
@@ -318,8 +313,7 @@ img(:, :, 2) = double(zeros(x)); %replace the saturation layer with our dept hma
 %add in our depth map 
 img(:, :, 2) = dm
 </code></pre>
-<h3></h3>
-<p></p>
+
 <p>&nbsp;</p>
 <center>
 <h2> RGB representation of HSV to hsV+dm</h2>
