@@ -38,7 +38,7 @@ D = p.^-1 ;
 D = (D/200)./((D/200)+1) ;
 Features3D= [MatchedPairs(1:2, :); D] ;
 maxD = max(D);
-Features3D= [Features3D, [0;0;maxD], [0;size(Ia,1);maxD], [size(Ia,2);0;maxD], [size(Ia,2);size(Ia,1);maxD]];
+Features3D= [Features3D, [0;0;minD], [0;size(Ia,1);minD], [size(Ia,2);0;minD], [size(Ia,2);size(Ia,1);minD]];
 
 %display
 X = Features3D(1, :) ;
