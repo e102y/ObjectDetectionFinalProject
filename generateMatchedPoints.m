@@ -1,21 +1,10 @@
-function returnValue = generateMatchedPoints(image)
-
-scale = 0.3 ; %how is the image scaled?
+function returnValue = generateMatchedPoints(image1, image2)
 angleStds = 0.7; %number of acceptable std deviations from mean for the angle of the vector connecting matched points 
 distStds = 3; %number of acceptable std deviations from the mean of matched point distances
 sift_peak_thresh = 1; %reduce to increase feature count
-ALLCHANNELS = true;
-
-%pfx = fullfile('Images', 'im0.png') ; 
-%figure; image(I) ;
-Iaorig = image
-
-%pfx = fullfile('Images', 'im1.png') ; 
-pfx = fullfile('Images', 'storage1.png') ; 
-Iborig = imread(pfx) ;
-Iborig = imresize(Iborig, scale) ;
-%figure, image(I) ;
-
+ALLCHANNELS = false;
+Iaorig = image1 ;
+Iborig = image2 ;
 
 %fc = [100; 100; 10; 0]; %specify frames?
 
