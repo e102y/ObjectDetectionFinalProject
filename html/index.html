@@ -333,9 +333,24 @@ RGB representation of hsV+dm
 </center>
 <p>
 
+<h3>Takeaways</h3>
+<div style="clear:both" >
+<p>
+	This project was hampered by a late database selection. We built the tools without having established something on which we could use these tools. Future projects should establish what the inputs and outputs will be early in development.
+</p>
+<p>
+	We also learned that when other people's work is encorporated into our work, it is best to respect the encapsulation of that project, and focus on adapting the inputs and outputs to suit our needs rather than attempt to alter the project's inner workings. We spent countless hours tinkering with the inner workings of Semantic Texton Forest implementation, when we eventually settled on just altering its inputs. 
+</p>
+<p>
+	The usefulness of a tool is often highly dependent on the nature of the input. Matlab's triangulate function would have given us a better quality heightmap than our hand implementation, but it required data we lacked or lacked the experiance to configure. 
+</p>
+
 <h3>Conclusions</h3>
 <div style="clear:both" >
-<p> 	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p> 
+	
+	We developed the tools needed to generate rough distance images from binocular sets, the tools needed to feed that information to a classifier, and enough of an understanding of the classifier to run it given a label set. However, we were unable to integrate the preprocessing and classification portions of the project in order to incorporate depth into image segmentation. This was in part due to a lack of a dataset that included a label set as well as binocular images, as well as a compressed window of time in which we had available to work within. Given another week, we believe we could have a working implementation, as a label set could be hand generated.
+</p>
 </div>
 </body>
 </html>
